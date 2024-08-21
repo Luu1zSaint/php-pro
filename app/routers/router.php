@@ -23,27 +23,41 @@ function regexRoute($uri, $routes) {
 }
 
 function routeParams($uri, $existsRoute) {
+    if(!empty($existsRoute)) {
         $keysRouteArray = array_keys($existsRoute)[0];
         return array_diff(
-            explode('/', ltrim($uri, '/')),
+            $uri,
             explode('/', ltrim($keysRouteArray, '/'))
         );
-        return [];
+    }
+    return [];
+}
+
+function formatIndexParams($uri, $params) {
+    $indexParams = [];
+    foreach($params as $key => $value) {
+        $indexParams[$uri[$key - 1]] = $value;
+    }
+    return $indexParams;
 }
 
 function getRoute() {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $routes = routers();
     $existsRoute =  existsRoute($uri, $routes);
-    
+    $formatParams = [];
     if (empty($existsRoute)){
         $existsRoute = regexRoute($uri, $routes);
-
-        if(!empty($existsRoute)) {
-            $routeParams = routeParams($uri, $existsRoute);
-            var_dump($routeParams);
-            die();
-        }
+        $uri = explode('/', ltrim($uri, '/'));  
+        $routeParams = routeParams($uri, $existsRoute);
+        $formatParams = formatIndexParams($uri, $routeParams);
     }
+
+    if(!empty($existsRoute)) {
+        loadController($existsRoute, $formatParams);
+        return;
+    }
+
+    throw new Exception('Algo deu errado');
 }
 ?>
