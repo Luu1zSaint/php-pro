@@ -1,0 +1,17 @@
+{
+  "name": "luizr/phppro",
+  "description": "Php Profissional... ou quase isso",
+  "authors": [
+    {
+      "name": "Luiz R.",
+      "email": "luizroberto44630@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "files": [],
+    "psr-4": {
+      "app\\": "app"
+    }
+  }
+}
