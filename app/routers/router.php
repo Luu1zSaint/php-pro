@@ -54,8 +54,7 @@ function getRoute() {
     }
 
     if(!empty($existsRoute)) {
-        loadController($existsRoute, $formatParams);
-        return;
+        return loadController($existsRoute, $formatParams);
     }
 
     throw new Exception('Algo deu errado');
