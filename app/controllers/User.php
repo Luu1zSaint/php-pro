@@ -2,11 +2,13 @@
 namespace app\controllers;
 
 class User {
-    public function create($params) {
-        echo 'create';
-    }
     public function show($params) {
-        echo 'show';
+        if(!isset($params['user'])) {
+            return redirect('/');
+        }
+
+        $userInfo = findBy('users', 'id', $params['user']);
+        var_dump($userInfo);
     }
 }
 ?>

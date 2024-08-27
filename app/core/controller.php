@@ -12,6 +12,6 @@ function loadController($existsRoute, $params) {
         throw new Exception("Método \"$method\" não encontrado!");
     }
 
-     return $controllerInstatiate->$method($params);
+    return $controllerInstatiate->$method($params);
 }
 ?>
